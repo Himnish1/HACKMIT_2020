@@ -58,7 +58,7 @@ def InitializeRequest(username, title, content, timeframe, new_location_name = N
     result = All_Requests.add_request(request, request_hash, All_Users)
     if result < 1:
         return -1
-    return 1
+    return request_hash
 
 
 
@@ -74,11 +74,15 @@ def DisplayRequestInfo(requestID):
     claimantID = All_Requests.loc[requestID]['fufiller']
     claimant = unhashUsername(claimantID)
 
+    return [username, location, title, content, timeframe, status, claimant]
+
 
 def ClaimRequest(requestID, username):
     """self explanatory, update data fields for request, return the username of the poster for requestID"""
     userID = hashUsername(username)
     All_Requests.add_fufiller(requestID, userID, All_Users)
+
+    return requestID
 
 
 def CompleteRequest(requestID, username):
